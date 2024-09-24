@@ -1,6 +1,6 @@
 let humanScore = localStorage.getItem('humanScore') ? parseInt(localStorage.getItem('humanScore')) : 0;
 let computerScore = localStorage.getItem('computerScore') ? parseInt(localStorage.getItem('computerScore')) : 0;
-let currentRoundNumber = localStorage.getItem('currentRoundNumber') ? parseInt(localStorage.getItem('currentRoundNumber')) : 0;
+let currentRoundNumber = localStorage.getItem('currentRoundNumber') ? parseInt(localStorage.getItem('currentRoundNumber')) : 1;
 
 let humanGuess = 0;
 let computerGuess = 0;
@@ -13,6 +13,11 @@ const generateTarget = () => {
 }
 console.log(generateTarget());
 
+const checkGuess = (humanGuess) => {
+  if (humanGuess > 10 || humanGuess < 0) {
+    alert('Your guess should be between 0 and 9!');
+  }
+}
 //Task II: 
 /* targetNum is assigned the generateTarget() function outside of the compareGuesses funtion. THis maintains consistency within the program, rather assinging targetNum this value inside the compareGuesses function. */
 const targetNum = generateTarget();
@@ -31,13 +36,13 @@ const updateScore = winner => {
   if (winner === 'computer') {
     computerScore++;
     localStorage.setItem('computerScore', computerScore);
-  } else if (winner === 'human'){
+  } else if (winner === 'human') {
     humanScore++;
     localStorage.setItem('humanScore', humanScore);
   }
 }
-/* Task IV:*/ 
-const advancedRound = (winner) => {
+/* Task IV:*/
+const advanceRound = (winner) => {
   currentRoundNumber++;
   localStorage.setItem('currentRoundNumber', currentRoundNumber)
 }

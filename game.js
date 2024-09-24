@@ -11,7 +11,9 @@ const targetNumberDisplay = document.getElementById('target-number');
 const computerWinsDisplay = document.getElementById('computer-wins');
 
 const guessButton = document.getElementById('guess');
-const nextRoundButton = document.getElementById('next-round')
+const nextRoundButton = document.getElementById('next-round');
+
+const resetButton = document.getElementById('reset-all');
 
 guessButton.addEventListener('click', () => {
   // Generate a random number value between 0 and 9 for the target number
@@ -49,6 +51,32 @@ guessButton.addEventListener('click', () => {
   // Set the correct disabled state for the buttons
   guessButton.setAttribute('disabled', true)
   nextRoundButton.removeAttribute('disabled');
+  resetButton.removeAttribute('disabled');
+});
+
+
+resetButton.addEventListener('click', () => {
+  // Reset human and computer scores, reset rounds
+  humanScore = 0;
+  computerScore =0;
+  currentRoundNumber = 1;
+  
+  localStorage.setItem('humanScore', humanScore);
+  localStorage.setItem('computerScore', computerScore);
+  localStorage.setItem('currentRoundNumber', currentRoundNumber);
+  
+  humanScoreDisplay.innerText = humanScore;
+  computerScoreDisplay.innerText = computerScore;
+  roundNumberDisplay.innerText = currentRoundNumber;
+  targetNumberDisplay.innerText = '?';
+  computerGuessDisplay.innerText = '?';
+  computerWinsDisplay.innerText = '';
+  guessButton.innerText = 'Make a Guess';
+  humanGuessInput.value = '';
+  guessButton.removeAttribute('disabled');
+  nextRoundButton.setAttribute('disabled', true);
+
+  console.log('Game reset: scores and round number reset to 0');
 });
 
 nextRoundButton.addEventListener('click', () => {
@@ -97,3 +125,5 @@ const handleValueChange = value => {
 humanGuessInput.addEventListener('input', function(e) {
   handleValueChange(e.target.value);
 });
+
+
